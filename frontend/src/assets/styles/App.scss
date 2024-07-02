@@ -1,0 +1,14 @@
+@import './variables.scss';
+* {
+  font-family: "Josefin Slab";
+}
+body{
+  background-color: $background;
+}
+svg{
+height: 64px;
+}
+form{
+  display: flex;
+  flex-direction: column;
+}
