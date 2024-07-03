@@ -1,6 +1,8 @@
 import React from "react";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { Link } from "react-router-dom";
+import '../assets/styles/myJokes.scss'
+
 
 const MyJokes: React.FC = () => {
   return (

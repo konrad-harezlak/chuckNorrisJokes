@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { Link } from "react-router-dom";
-
+import '../assets/styles/addJoke.scss';
 const AddJoke: React.FC = () => {
   return (
     <div className="home">

@@ -1,2 +1,108 @@
-@import './variables.scss';
+@import "./variables.scss";
+@import "./App.scss";
 
+.login-container {
+  background-color: $white;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: $grey;
+  width: 73vw;
+  height: 63vh;
+  justify-content: space-around;
+  position: relative;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.25);
+  main {
+    width: 50%;
+    h1 {
+      color: $black;
+      font-size: 32px;
+      font-weight: 400;
+      margin-bottom: 50px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: relative;
+        margin-bottom: 20px;
+
+        label {
+          position: absolute;
+          text-align: left;
+          top: -5px;
+          left: 10px;
+          padding: 0 5px;
+          background-color: $white;
+          color:#000;
+        }
+
+        input {
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid $light-ping;
+          border-radius: 4px;
+          font-size: 16px;
+          height: 50px;
+        }
+      }
+
+      button {
+        padding: 10px;
+        margin-top: 10px;
+        background-color: $purple;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+    }
+
+    p {
+      font-size: 16px;
+      margin-top: 20px;
+
+      a {
+        color: $black;
+        text-decoration: none;
+        font-weight: 700;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  footer {
+    color: $pink;
+    margin-top: 20px;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .decoration-icon {
+    position: absolute;
+
+    &.left {
+      top: 15vh;
+      left: 0;
+      transform: translate(-50%, -50%);
+      height: 130px;
+    }
+
+    &.right {
+      bottom: 5vh;
+      right: 0;
+      transform: translate(50%, -50%);
+    }
+  }
+}

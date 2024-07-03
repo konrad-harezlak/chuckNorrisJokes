@@ -1,14 +1,31 @@
 @import './variables.scss';
+
 * {
-  font-family: "Josefin Slab";
+  font-family: $font-family-base;
+  box-sizing: border-box;
 }
-body{
-  background-color: $background;
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
 }
-svg{
-height: 64px;
+
+html, body, .app {
+  background-color: $purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-form{
+
+svg {
+  height: 64px;
+  fill: $grey;
+}
+
+form {
   display: flex;
   flex-direction: column;
 }

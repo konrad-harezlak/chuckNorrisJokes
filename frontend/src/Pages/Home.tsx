@@ -1,27 +1,44 @@
 import React from "react";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { Link } from "react-router-dom";
-
+import "../assets/styles/home.scss";
 const Home: React.FC = () => {
   return (
-    <div className="home">
+    <div className="home-container">
       <aside>
-        <Logo />
-        <Link to="/home">RANDOM JOKE</Link>
-        <Link to='/myjokes'>MY JOKES</Link>
-        <Link to='/addjoke'>ADD JOKE</Link>
-        <Link to='/login'>LOG OUT</Link>
-        <p>made with Chuck by Chuck - 2024</p>
+        <div>
+          <Logo />
+          <Link to="/home">
+            <h3 id="selected_page">RANDOM JOKE</h3>
+          </Link>
+          <Link to="/myjokes">
+            <h3>MY JOKES</h3>
+          </Link>
+          <Link to="/addjoke">
+            <h3>ADD JOKE</h3>
+          </Link>
+        </div>
+        <div>
+          <Link to="/login">
+            <h3>LOG OUT</h3>
+          </Link>
+          <p>made with Chuck by Chuck - 2024</p>
+        </div>
       </aside>
       <main>
         <h1> Get your random joke</h1>
         <p>"joke"</p>
         <label htmlFor="personateInput">Impersonate</label>
-        <input id="personateInput" placeholder="Impersonate Chuck Norris"></input>
-        <select>
-            <option>Category</option>
+        <input
+          id="personateInput"
+          placeholder="Impersonate Chuck Norris"
+        ></input>
+        <label htmlFor="category">Categories</label>
+        <select id="category">
+          <option>Category</option>
         </select>
-        
+        <button></button>
+        <button></button>
       </main>
     </div>
   );
