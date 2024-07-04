@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { Link } from "react-router-dom";
-import '../assets/styles/addJoke.scss';
+import "../assets/styles/addJoke.scss";
 const AddJoke: React.FC = () => {
+  const [joke, setJoke] = useState("");
+  useEffect(() => {
+    const validateForm = () => {
+      const button = document.getElementById("addJoke") as HTMLButtonElement;
+      if (button)
+        if (!joke) {
+          button.disabled = true;
+          button.style.backgroundColor = "rgba(0,0,0,0.12)";
+        } else {
+          button.disabled = false;
+          button.style.backgroundColor = "#5b64b4";
+        }
+    };
+    validateForm();
+  }, [joke]);
   return (
     <div className="home-container">
       <aside>
@@ -29,9 +44,16 @@ const AddJoke: React.FC = () => {
         <h1>Add joke</h1>
 
         <form>
-          <label>Joke</label>
-          <input placeholder="Type your joke here"></input>
-          <button> Add Joke</button>
+          <div className="form-group">
+            <label>Joke</label>
+            <textarea
+              id="joke-textarea"
+              placeholder="Type your joke here"
+              value={joke}
+              onChange={(e) => setJoke(e.target.value)}
+            ></textarea>
+          </div>
+          <button id="addJoke"> Add Joke</button>
         </form>
       </main>
     </div>
