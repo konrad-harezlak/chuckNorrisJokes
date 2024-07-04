@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/home" Component={Home} />
+          <Route path="/" Component={Home} />
           <Route path="/myjokes" Component={MyJokes} />
           <Route path="/addjoke" Component={AddJoke} />
           <Route path="/login" Component={Login} />

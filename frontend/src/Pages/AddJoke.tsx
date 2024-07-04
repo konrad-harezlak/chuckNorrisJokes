@@ -8,7 +8,7 @@ const AddJoke: React.FC = () => {
       <aside>
         <div>
           <Logo />
-          <Link to="/home">
+          <Link to="/">
             <h3>RANDOM JOKE</h3>
           </Link>
           <Link to="/myjokes">

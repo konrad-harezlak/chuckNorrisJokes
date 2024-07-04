@@ -43,10 +43,102 @@
     background-color: $white;
     border-radius: 32px;
     box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.25);
-    padding: 40px;
+    padding: 50px;
+    padding-right: 100px;
     padding-top: 100px;
     position: relative;
 
+    h1 {
+      margin-bottom: 40px;
+    }
+    p {
+      font-weight: 500;
+      font-style: italic;
+      font-size: 24px;
+      color: $black;
+      min-height: 35%;
+    }
+    .input-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      .form-group {
+        display: flex;
+        position: relative;
+        margin-bottom: 4vh;
+        *{
+          font-family: $roboto;
+        }
+        &.first {
+          width: 65%;
+        }
+        &.second {
+          width: 30%;
+        }
+        label {
+          position: absolute;
+          font-size: 12px;
+          text-align: left;
+          top: -5px;
+          left: 10px;
+          padding: 0 5px;
+          background-color: $white;
+          color: rgba(0, 0, 0, 0.6);
+          font-weight: 500;
+        }
+
+        input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid $light-ping;
+          border-radius: 4px;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+          height: 50px;
+        }
+        input::placeholder{
+          color:rgba(0, 0, 0, 0.38);
+        }
+        select {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid $light-ping;
+          border-radius: 4px;
+          font-size: 16px;
+          height: 50px;
+          color:rgba(0, 0, 0, 0.38);
+          option {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .button-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      button {
+        height: 5vh;
+        padding: 8px, 22px, 8px, 22px;
+        border-radius: 4px;
+        border: none;
+        color: $white;
+        font-family: $roboto;
+        font-weight: 500;
+        font-size: 15px;
+        box-shadow:0px 4px 5px 0px rgba(0, 0, 0, 0.3);
+      }
+      .btn-first {
+        width: 65%;
+        background-color: $purple;
+      }
+      .btn-second {
+        width: 30%;
+        background-color: $pink;
+      }
+    }
     .decoration-image {
       position: absolute;
       top: 0;
