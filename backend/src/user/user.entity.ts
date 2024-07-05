@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Joke } from '../jokes/joke.entity';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -12,6 +11,6 @@ export class User {
     @Column()
     password: string;
 
-    @OneToMany(() => Joke, joke => joke.user)
-    jokes: Joke[];
+    @Column('simple-array', { default: [] }) 
+    jokes: string[]; 
 }
