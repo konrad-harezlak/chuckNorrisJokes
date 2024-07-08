@@ -1,5 +1,6 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/styles/login.scss";
+import api from "../services/ApiService";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { ReactComponent as Decoration } from "../assets/images/decoration.svg";
 import { Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import { Link } from "react-router-dom";
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  useEffect(() =>{
+  useEffect(() => {
     const validateForm = () => {
       const button = document.getElementById(
         "form-submit"
@@ -22,12 +23,17 @@ const Register: React.FC = () => {
         }
       }
     };
-    validateForm()
-  },[email,password]);
+    validateForm();
+  }, [email, password]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("działa");
+    try {
+      const response = await api.post("/user/register", { email, password });
+      console.log("Register successful:", response.data);
+    } catch (error) {
+      console.error("Register failed:", error);
+    }
   };
   return (
     <div className="login-container">
@@ -69,7 +75,7 @@ const Register: React.FC = () => {
       <footer>
         “Chuck Norris can login without signing up, on any website.”
       </footer>
-      <Decoration id="left-decoration" className="decoration-icon left"  />
+      <Decoration id="left-decoration" className="decoration-icon left" />
       <Decoration id="right-decoration" className="decoration-icon right" />
     </div>
   );

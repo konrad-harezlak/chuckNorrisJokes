@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import api from '../services/ApiService';
 import "../assets/styles/login.scss";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { ReactComponent as Decoration } from "../assets/images/decoration.svg";
@@ -26,9 +27,14 @@ const Login: React.FC = () => {
   },[email,password]);
 
  
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("działa");
+    try {
+      const response = await api.post('/user/login', { email, password });
+      console.log('Login successful:', response.data);
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
   return (
     <div className="login-container">

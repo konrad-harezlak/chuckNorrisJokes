@@ -1,16 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity()
 export class User {
-    @PrimaryGeneratedColumn()
     id: number;
-
-    @Column({ unique: true })
     email: string;
-
-    @Column()
     password: string;
+    jokes: string[];
 
-    @Column('simple-array', { default: [] }) 
-    jokes: string[]; 
+    constructor(id: number, email: string, password: string, jokes: string[] = []) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.jokes = jokes;
+    }
 }

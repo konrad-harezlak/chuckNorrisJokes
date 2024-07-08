@@ -4,6 +4,8 @@ import { User } from '../user/user.entity';
 
 @Injectable()
 export class JokesService {
+  private userJokes: { [key: number]: string[] } = {};
+
   constructor(private httpService: HttpService) {}
 
   async getRandomJoke(): Promise<string> {
@@ -16,24 +18,20 @@ export class JokesService {
     return response.data.value;
   }
 
-  async saveJoke(content: string, user: User): Promise<void> {
-    if (!user.jokes) {
-      user.jokes = [];
+  saveJoke(content: string, user: User): void {
+    if (!this.userJokes[user.id]) {
+      this.userJokes[user.id] = [];
     }
-    user.jokes.push(content);
+    this.userJokes[user.id].push(content);
   }
 
-  async getJokes(user: User): Promise<string[]> {
-    return user.jokes || [];
+  getJokes(user: User): string[] {
+    return this.userJokes[user.id] || [];
   }
 
-  async deleteJoke(content: string, user: User): Promise<void> {
-    if (!user.jokes) {
-      return;
-    }
-    const index = user.jokes.indexOf(content);
-    if (index !== -1) {
-      user.jokes.splice(index, 1);
+  deleteJoke(id: number, user: User): void {
+    if (this.userJokes[user.id] && this.userJokes[user.id][id]) {
+      this.userJokes[user.id].splice(id, 1);
     }
   }
 }

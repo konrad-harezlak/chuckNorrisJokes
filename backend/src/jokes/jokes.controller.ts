@@ -17,7 +17,8 @@ export class JokesController {
   @UseGuards(JwtAuthGuard)
   @Post('save')
   async saveJoke(@Body('content') content: string, @Request() req): Promise<any> {
-    return this.jokesService.saveJoke(content, req.user);
+    this.jokesService.saveJoke(content, req.user);
+    return { message: 'Joke saved successfully' };
   }
 
   @UseGuards(JwtAuthGuard)
@@ -28,14 +29,16 @@ export class JokesController {
 
   @UseGuards(JwtAuthGuard)
   @Delete('delete/:id')
-  async deleteJoke(@Param('id') id: number, @Request() req): Promise<any> {
-    return this.jokesService.deleteJoke(id, req.user);
+  async deleteJoke(@Param('id') id: string, @Request() req): Promise<any> {
+    const jokeId = parseInt(id, 10); 
+    this.jokesService.deleteJoke(jokeId, req.user);
+    return { message: 'Joke deleted successfully' };
   }
-  
+
   @UseGuards(JwtAuthGuard)
   @Post('add')
   async addJoke(@Body() jokeData: { content: string }, @Request() req): Promise<any> {
-    return this.jokesService.saveJoke(jokeData.content, req.user);
+    this.jokesService.saveJoke(jokeData.content, req.user);
+    return { message: 'Joke added successfully' };
   }
-  
 }

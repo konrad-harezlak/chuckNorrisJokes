@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios'
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { HttpModule } from '@nestjs/axios';
 import { JokesService } from './jokes.service';
 import { JokesController } from './jokes.controller';
-import { Joke } from './joke.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Joke]), HttpModule],
+  imports: [HttpModule],
   providers: [JokesService],
   controllers: [JokesController],
+  exports: [JokesService], 
 })
 export class JokesModule {}
