@@ -3,9 +3,10 @@ import "../assets/styles/login.scss";
 import api from "../services/ApiService";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { ReactComponent as Decoration } from "../assets/images/decoration.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   useEffect(() => {
@@ -31,6 +32,7 @@ const Register: React.FC = () => {
     try {
       const response = await api.post("/user/register", { email, password });
       console.log("Register successful:", response.data);
+      navigate('/login');
     } catch (error) {
       console.error("Register failed:", error);
     }

@@ -3,12 +3,16 @@ import api from '../services/ApiService';
 import "../assets/styles/login.scss";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import { ReactComponent as Decoration } from "../assets/images/decoration.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../contexts/authContext';
 
 const Login: React.FC = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  useEffect(() =>{
+
+  useEffect(() => {
     const validateForm = () => {
       const button = document.getElementById(
         "form-submit"
@@ -24,18 +28,20 @@ const Login: React.FC = () => {
       }
     };
     validateForm();
-  },[email,password]);
+  }, [email, password]);
 
- 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await api.post('/user/login', { email, password });
       console.log('Login successful:', response.data);
+      login();
+      navigate('/');
     } catch (error) {
       console.error('Login failed:', error);
     }
   };
+
   return (
     <div className="login-container">
       <header>

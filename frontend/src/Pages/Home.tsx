@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
-import { Link } from "react-router-dom";
 import "../assets/styles/home.scss";
 import chuck from "../assets/images/chuck.png";
+import { useAuth } from '../contexts/authContext';
+import { Link, useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
   const [name, setName] = useState("Chuck Norris");
+  const { logout, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+  useEffect(()=>{
+    if(!isLoggedIn){
+      navigate('/login');
+    }
+  }, [isLoggedIn, navigate]);
+  const handleSubmit = () => {
+    try{
+      logout();
+      navigate('/login')
+    } catch(err) {
+      console.log('Logout failed: ', err)
+    }
+  }
   return (
     <div className="home-container">
       <aside>
@@ -22,7 +38,7 @@ const Home: React.FC = () => {
           </Link>
         </div>
         <div>
-          <Link to="/login">
+          <Link onClick={handleSubmit} to=''>
             <h3>LOG OUT</h3>
           </Link>
           <p>made with Chuck by Chuck - 2024</p>
