@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import "../assets/styles/addJoke.scss";
-import { useAuth } from '../contexts/authContext';
+import { useAuth } from "../contexts/authContext";
 import { Link, useNavigate } from "react-router-dom";
-
+import api from "../services/ApiService";
 const AddJoke: React.FC = () => {
   const [joke, setJoke] = useState("");
   const { logout, isLoggedIn } = useAuth();
 
   const navigate = useNavigate();
-  useEffect(()=>{
-    if(!isLoggedIn){
-      navigate('/login');
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
     }
   }, [isLoggedIn, navigate]);
 
   const handleSubmit = () => {
-    try{
+    try {
       logout();
-      navigate('/login')
-    } catch(err) {
-      console.log('Logout failed: ', err)
+      navigate("/login");
+    } catch (err) {
+      console.log("Logout failed: ", err);
     }
-  }
+  };
   useEffect(() => {
     const validateForm = () => {
       const button = document.getElementById("addJoke") as HTMLButtonElement;
@@ -37,6 +37,25 @@ const AddJoke: React.FC = () => {
     };
     validateForm();
   }, [joke]);
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(joke);
+    const storedToken = localStorage.getItem("token");
+    try {
+      const response = await api.post(
+        "/jokes/add",
+        { content:joke },
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        }
+      );
+      console.log("Joke added successfully", response);
+    } catch (err) {
+      console.log("Error occured while adding joke: ", err);
+    }
+  };
   return (
     <div className="home-container">
       <aside>
@@ -53,7 +72,7 @@ const AddJoke: React.FC = () => {
           </Link>
         </div>
         <div>
-          <Link onClick={handleSubmit} to=''>
+          <Link onClick={handleSubmit} to="">
             <h3>LOG OUT</h3>
           </Link>
           <p>made with Chuck by Chuck - 2024</p>
@@ -61,8 +80,7 @@ const AddJoke: React.FC = () => {
       </aside>
       <main>
         <h1>Add joke</h1>
-
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="form-group">
             <label>Joke</label>
             <textarea

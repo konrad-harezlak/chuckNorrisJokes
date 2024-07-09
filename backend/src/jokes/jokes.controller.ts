@@ -44,6 +44,7 @@ export class JokesController {
   @Post('add')
   async addJoke(@Body() jokeData: { content: string }, @Request() req): Promise<any> {
     this.jokesService.saveJoke(jokeData.content, req.user);
+    console.log(jokeData.content);
     return { message: 'Joke added successfully' };
   }
 }

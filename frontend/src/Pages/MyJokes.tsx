@@ -29,13 +29,12 @@ const MyJokes: React.FC = () => {
 
     const storedToken = localStorage.getItem('token');
     try{
-
-  
     const response = await api.get('/jokes/my-jokes', {
       headers: {
         Authorization: `Bearer ${storedToken}`
       }
       });
+      console.log(response.data)
       setJokes(response.data)
     }catch(err){
       console.log('Error occured while fetcing jokes: ', err);
