@@ -34,7 +34,9 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const response = await api.post('/user/login', { email, password });
-      console.log('Login successful:', response.data);
+      console.log('Login successful:', response.data.userId);
+      const token = response.data.token; 
+      localStorage.setItem('token', token);
       login();
       navigate('/');
     } catch (error) {

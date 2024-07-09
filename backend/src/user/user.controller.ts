@@ -1,9 +1,13 @@
 import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
 import { UserService } from './user.service';
+import { AuthService } from '../auth/auth.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService, 
+  ) {}
 
   @Post('register')
   async register(
@@ -24,6 +28,9 @@ export class UserController {
     if (!email || !password) {
       throw new BadRequestException('Email and password are required');
     }
-    return this.userService.login(email, password);
+    console.log("działa")
+    const { token, userId } = await this.authService.validateUser(email, password);
+    console.log("token: ", token)
+    return { message: 'Login successful', token, userId };
   }
 }

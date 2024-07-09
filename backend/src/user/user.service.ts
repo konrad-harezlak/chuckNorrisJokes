@@ -4,40 +4,29 @@ interface User {
   id: number;
   email: string;
   password: string;
-  jokes: string[];
 }
 
 @Injectable()
 export class UserService {
-  private users: User[] = [];
-  private idCounter = 1;
+  private users: User[] = [{ id: 1, email: 'admin@admin.com', password: 'admin' }];
+  private userIdCounter = 2;
 
-  register(email: string, password: string): any {
-    const userExists = this.users.find(user => user.email === email);
-    if (userExists) {
-      throw new Error('User already exists');
-    }
+  async register(email: string, password: string): Promise<void> {
     const newUser: User = {
-      id: this.idCounter++,
+      id: this.userIdCounter++,
       email,
       password,
-      jokes: [],
     };
     this.users.push(newUser);
-    return { message: 'User registered successfully', userId: newUser.id };
   }
 
-  login(email: string, password: string): any {
-    const user = this.users.find(
-      user => user.email === email && user.password === password,
-    );
-    if (!user) {
-      throw new Error('Invalid email or password');
-    }
-    return { message: 'Login successful', userId: user.id };
+  async findByEmailAndPassword(email: string, password: string): Promise<User | undefined> {
+    const user = this.users.find(u => u.email === email && u.password === password);
+    return user;
   }
 
-  findById(userId: number): User | undefined {
-    return this.users.find(user => user.id === userId);
+  async findById(userId: number): Promise<User | undefined> {
+    const user = this.users.find(u => u.id === userId);
+    return user;
   }
 }

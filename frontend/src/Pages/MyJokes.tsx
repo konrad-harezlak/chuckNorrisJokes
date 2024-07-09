@@ -1,18 +1,21 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import { ReactComponent as Logo } from "../assets/images/logo.svg";
 import '../assets/styles/myJokes.scss'
 import {ReactComponent as Delete} from "../assets/images/delete-icon.svg";
 import { useAuth } from '../contexts/authContext';
 import { Link, useNavigate } from "react-router-dom";
+import api from "../services/ApiService";
 
 const MyJokes: React.FC = () => {
 
   const { logout, isLoggedIn } = useAuth();
+  const [jokes, setJokes] = useState([]);
   const navigate = useNavigate();
   useEffect(()=>{
     if(!isLoggedIn){
       navigate('/login');
     }
+    fetchJokes();
   }, [isLoggedIn, navigate]);
   const handleSubmit = () => {
     try{
@@ -22,7 +25,23 @@ const MyJokes: React.FC = () => {
       console.log('Logout failed: ', err)
     }
   }
+  const fetchJokes = async () =>{
 
+    const storedToken = localStorage.getItem('token');
+    try{
+
+  
+    const response = await api.get('/jokes/my-jokes', {
+      headers: {
+        Authorization: `Bearer ${storedToken}`
+      }
+      });
+      setJokes(response.data)
+    }catch(err){
+      console.log('Error occured while fetcing jokes: ', err);
+    }
+
+  }
   return (
     <div className="home-container">
     <aside>
@@ -48,8 +67,10 @@ const MyJokes: React.FC = () => {
       <main>
         <h1>My jokes list</h1>
         <ol>
-          <li><div>“If Chuck Norris were to travel to an alternate dimension in which there was...<Delete/></div></li>
-          <li><div>“If Chuck Norris were to travel to an alternate dimension in which there was...<Delete/></div></li>
+          {jokes && jokes.map((joke,index)=>(
+            <li><div>{joke}<Delete/></div></li>
+
+          ))}
         </ol>
       </main>
     </div>

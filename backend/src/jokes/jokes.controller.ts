@@ -16,8 +16,13 @@ export class JokesController {
 
   @UseGuards(JwtAuthGuard)
   @Post('save')
-  async saveJoke(@Body('content') content: string, @Request() req): Promise<any> {
-    this.jokesService.saveJoke(content, req.user);
+  async saveJoke(
+    @Body('content') content: string,
+    @Request() req,
+  ): Promise<any> {
+    const userId = req.user.userId; 
+    this.jokesService.saveJoke(content, userId);
+    
     return { message: 'Joke saved successfully' };
   }
 
